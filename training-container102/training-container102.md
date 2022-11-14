@@ -31,11 +31,15 @@ docker logs web1
 
 6: Create a container named test1 from ozgurozturknet/adanzyedocker image. Create it with -dit and open the sh shell. Let this container be connected to the default bridge network. 
 
-`docker container run -dit --name test1 ozgurozturknet/adanzyedocker sh`
+```
+docker container run -dit --name test1 ozgurozturknet/adanzyedocker sh
+```
 
-7: Connect this container to the "alistirma-agi" network as well.
+7: Connect this container to the "training-network" network as well.
 
-`docker network connect training-network`
+```
+docker network connect training-network
+```
 
 8: Connect to the container with attach and try to ping web1 from inside the container. Exit the container without closing it. 
 
@@ -58,13 +62,13 @@ docker rm $(docker ps -aq)
 
 
 
-11: Create a detached container named websrv from the ozgurozturknet/webkayit image. Let it be connected to the "alistirma-agi" network. Restrict it to use maximum 2 logical cpu. Publish port 80 with port 80 on the host. Make sure that env.list file is passed to this container as enviroment variable. 
+11: Create a detached container named websrv from the ozgurozturknet/webkayit image. Let it be connected to the "training-network" network. Restrict it to use maximum 2 logical cpu. Publish port 80 with port 80 on the host. Make sure that env.list file is passed to this container as enviroment variable. 
 
 ```
 docker container run -d -p 80:80 --name websrv --network training-network --cpus="2" --env-file .\env.list ozgurozturknet/webkayit
 ```
 
-12: Create a detached container named mysqldb from ozgurozturknet/webdb image. Let it be connected to the "alistirma-agi" network. Restrict it to use maximum 1gb memory. Make sure that envmysql.list file is passed to this container as enviroment variable. 
+12: Create a detached container named mysqldb from ozgurozturknet/webdb image. Let it be connected to the "training-network" network. Restrict it to use maximum 1gb memory. Make sure that envmysql.list file is passed to this container as enviroment variable. 
 
 ```
 docker container run -d --name mysqldb --network training-network --memory=1g --env-file .\envmysql.list ozgurozturknet/webdb
