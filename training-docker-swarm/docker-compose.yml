@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  my_web_server:
+
+  my_db:
+
+volumes:
+
+networks:
+  
+
+secrets:
